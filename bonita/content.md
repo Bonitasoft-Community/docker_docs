@@ -268,7 +268,7 @@ The `-v /my/own/datadir:/opt/bonita` part of the command mounts the `/my/own/dat
 -	Specific consideration regarding maintenance version upgrades for Bonita 7.11+
 Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita does not require the migration tool. To upgrade to a different maintenance versions in bonita 7.11+ (for example going from 7.11.0 to 7.11.1) follow these steps:
 * Stop your old docker container.
-* Launch the new container pointing towards the copy of DB and filesystem.
+* Launch the new container pointing towards the DB and filesystem.
 ```console
 	$ docker run --name=bonita_7.10.3_postgres --link mydbpostgres:postgres -e "DB_NAME=newbonitadb" -e "DB_USER=newbonitauser" -e "DB_PASS=newbonitapass" -d -p 8081:8080 %%IMAGE%%:7.10.3
 ```
