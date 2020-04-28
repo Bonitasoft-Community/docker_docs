@@ -270,7 +270,7 @@ Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita doe
 * Stop your old docker container.
 * Launch the new container pointing towards the DB and filesystem.
 ```console
-	$ docker run --name=bonita_7.10.3_postgres --link mydbpostgres:postgres -e "DB_NAME=newbonitadb" -e "DB_USER=newbonitauser" -e "DB_PASS=newbonitapass" -d -p 8081:8080 %%IMAGE%%:7.10.3
+	$ docker run --name=bonita_7.11.0_postgres --link mydbpostgres:postgres -e "DB_NAME=bonitadb" -e "DB_USER=bonitauser" -e "DB_PASS=bonitapass" -d -p 8081:8080 %%IMAGE%%:7.11.0
 ```
 * Reapply specific configuration if needed.
 
