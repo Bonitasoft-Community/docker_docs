@@ -106,10 +106,6 @@ The `-v /my/own/datadir:/opt/bonita` part of the command mounts the `/my/own/dat
 Upgrading to a new Bonita version requires operation on the Bonita database. These are done with the bonita migration tool.
 For more details regarding Bonita migration, see the [documentation](https://documentation.bonitasoft.com/bonita/7.11/migrate-from-an-earlier-version-of-bonita-bpm).
 
-### Specific consideration regarding migration to Java 11 in Bonita 7.9
-Bonita 7.9 docker image can run with Java 11. If you are migrating from an earlier version which runs Java 8, you should validate on a test environment that your custom code is compatible. 
-Aside from just code incompatibility, special attention has to be given to the dependencies of the custom code, as they might not work in Java 11.
-
 ### Upgrade to a higher maintenance version
 
 For Bonita versions < 7.11.0, refer to the section below **Upgrade to a higher major or minor version**.
@@ -280,6 +276,10 @@ Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita (7.
 	```console
 	$ docker restart bonita_7.10.3_postgres
 	```
+	
+### Specific consideration regarding migration to Java 11 in Bonita 7.9
+Bonita 7.9 docker image can run with Java 11. If you are migrating from an earlier version which runs Java 8, you should validate on a test environment that your custom code is compatible. 
+Aside from just code incompatibility, special attention has to be given to the dependencies of the custom code, as they might not work in Java 11.
 
 ## Security
 
