@@ -103,6 +103,22 @@ The `-v /my/own/datadir:/opt/bonita` part of the command mounts the `/my/own/dat
 
 ## Migrate from an earlier version of Bonita
 
+Upgrading to a new Bonita version requires operation on the Bonita database. These are done with the bonita migration tool.
+For more details regarding Bonita migration, see the [documentation](https://documentation.bonitasoft.com/bonita/7.11/migrate-from-an-earlier-version-of-bonita-bpm).
+
+### Upgrade to a higher maintenance version
+
+For Bonita versions < 7.11.0, refer to the section below **Upgrade to a higher major or minor version**.
+
+Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita (7.11.**1**, 7.11.**2**...) does not require the migration tool. To upgrade to a different maintenance versions in bonita 7.11+ follow these steps:
+* Stop your old docker container.
+* Launch the new container pointing towards the DB and filesystem.
+```console
+	$ docker run --name=bonita_7.11.1_postgres --link mydbpostgres:postgres -e "DB_NAME=bonitadb" -e "DB_USER=bonitauser" -e "DB_PASS=bonitapass" -d -p 8081:8080 %%IMAGE%%:7.11.1
+```
+* Reapply specific configuration if needed.
+
+### Upgrade to a higher major or minor version
 -	Stop the container to perform a backup
 
 	```console
@@ -260,21 +276,10 @@ The `-v /my/own/datadir:/opt/bonita` part of the command mounts the `/my/own/dat
 	```console
 	$ docker restart bonita_7.10.3_postgres
 	```
-
--	Specific consideration regarding migration to Java 11 in Bonita 7.9
-
-	Bonita 7.9 docker image runs with Java 11. If you are migrating from an earlier version which runs Java 8, you should validate on a test environment that your custom code is compatible. Aside from just code incompatibility, special attention has to be given to the dependencies of the custom code, as they might not work in Java 11.
-
--	Specific consideration regarding maintenance version upgrades for Bonita 7.11+
-Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita does not require the migration tool. To upgrade to a different maintenance versions in bonita 7.11+ (for example going from 7.11.0 to 7.11.1) follow these steps:
-* Stop your old docker container.
-* Launch the new container pointing towards the DB and filesystem.
-```console
-	$ docker run --name=bonita_7.11.0_postgres --link mydbpostgres:postgres -e "DB_NAME=bonitadb" -e "DB_USER=bonitauser" -e "DB_PASS=bonitapass" -d -p 8081:8080 %%IMAGE%%:7.11.0
-```
-* Reapply specific configuration if needed.
-
-For more details regarding Bonita migration, see the [documentation](https://documentation.bonitasoft.com/bonita/7.11/migrate-from-an-earlier-version-of-bonita-bpm).
+	
+### Specific consideration regarding migration to Java 11 in Bonita 7.9
+Bonita 7.9 docker image can run with Java 11. If you are migrating from an earlier version which runs Java 8, you should validate on a test environment that your custom code is compatible. 
+Aside from just code incompatibility, special attention has to be given to the dependencies of the custom code, as they might not work in Java 11.
 
 ## Security
 
