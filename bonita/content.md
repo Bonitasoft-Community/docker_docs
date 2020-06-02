@@ -183,9 +183,9 @@ Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita (7.
 
 		```console
 		cd bonita_migration
-		wget https://release.ow2.org/bonita/bonita-migration-distrib-2.49.0.zip
+		wget https://release.ow2.org/bonita/bonita-migration-distrib-2.51.0.zip
 		wget https://download.forge.ow2.org/bonita/BonitaBPMCommunity-7.2.4-Tomcat-7.0.67.zip
-		unzip bonita-migration-distrib-2.49.0.zip
+		unzip bonita-migration-distrib-2.51.0.zip
 		unzip BonitaBPMCommunity-7.2.4-Tomcat-7.0.67.zip
 		```
 
@@ -200,14 +200,14 @@ Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita (7.
 
 		```console
 		cd bonita_migration
-		wget https://release.ow2.org/bonita/bonita-migration-distrib-2.49.0.zip
-		unzip bonita-migration-distrib-2.49.0.zip
+		wget https://release.ow2.org/bonita/bonita-migration-distrib-2.51.0.zip
+		unzip bonita-migration-distrib-2.51.0.zip
 		```
 
 -	Configure the migration tool
 
 	```console
-	$ cd bonita-migration-distrib-2.49.0
+	$ cd bonita-migration-distrib-2.51.0
 	```
 
 	edit the migration tool config to point towards the copy of bonita home and db
@@ -244,17 +244,17 @@ Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita (7.
 	-	If >= 7.3.0
 
 	```console
-	$ docker run --name=bonita_7.10.3_postgres --link mydbpostgres:postgres -e "DB_NAME=newbonitadb" -e "DB_USER=newbonitauser" -e "DB_PASS=newbonitapass" -d -p 8081:8080 %%IMAGE%%:7.10.3
+	$ docker run --name=bonita_7.10.5_postgres --link mydbpostgres:postgres -e "DB_NAME=newbonitadb" -e "DB_USER=newbonitauser" -e "DB_PASS=newbonitapass" -d -p 8081:8080 %%IMAGE%%:7.10.5
 	```
 
 -	Reapply specific configuration if needed, for example with a version >= 7.3.0 :
 
 	```console
-	$ docker exec -ti bonita_7.10.3_postgres /bin/bash
+	$ docker exec -ti bonita_7.10.5_postgres /bin/bash
 	```
 
 	```console
-	$ cd /opt/bonita/BonitaCommunity-7.10.3/setup
+	$ cd /opt/bonita/BonitaCommunity-7.10.5/setup
 	$ ./setup.sh pull
 	$ TENANT_LOGIN=tech_user
 	$ TENANT_PASSWORD=secret
@@ -274,7 +274,7 @@ Starting with Bonita 7.11+, upgrading between maintenance versions of Bonita (7.
 	```
 
 	```console
-	$ docker restart bonita_7.10.3_postgres
+	$ docker restart bonita_7.10.5_postgres
 	```
 	
 ### Specific consideration regarding migration to Java 11 in Bonita 7.9
@@ -396,7 +396,7 @@ For example, you can increase the log level :
 ```console
 $ mkdir -p custom_bonita
 $ echo '#!/bin/bash' > custom_bonita/bonita.sh
-$ echo 'sed -i "s/^org.bonitasoft.level = WARNING$/org.bonitasoft.level = FINEST/" /opt/bonita/BonitaCommunity-7.10.3/server/conf/logging.properties' >> custom_bonita/bonita.sh
+$ echo 'sed -i "s/^org.bonitasoft.level = WARNING$/org.bonitasoft.level = FINEST/" /opt/bonita/BonitaCommunity-7.10.5/server/conf/logging.properties' >> custom_bonita/bonita.sh
 $ chmod +x custom_bonita/bonita.sh
 
 $ docker run --name bonita_custom -v "$PWD"/custom_bonita/:/opt/custom-init.d -d -p 8080:8080 %%IMAGE%%
@@ -414,7 +414,7 @@ Note: There are several ways to check the `bonita` logs. Till Bonita 7.8, one of
 
 ```console
 $ docker exec -ti bonita_custom /bin/bash
-tail -f /opt/bonita/BonitaCommunity-7.10.3/server/logs/bonita.`date +%Y-%m-%d`.log
+tail -f /opt/bonita/BonitaCommunity-7.10.5/server/logs/bonita.`date +%Y-%m-%d`.log
 ```
 
 Since Bonita 7.9 bonita logs are redirected towards standard output and directly accessible using
