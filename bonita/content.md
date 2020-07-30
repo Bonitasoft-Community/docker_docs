@@ -167,7 +167,7 @@ The `-v /my/own/datadir:/opt/bonita` part of the command mounts the `/my/own/dat
 
 		```console
 		cd bonita_migration
-		wget https://release.ow2.org/bonita/bonita-migration-distrib-2.52.0.zip
+		wget https://github.com/bonitasoft/bonita-platform-releases/releases/download/7.11.0/bonita-migration-distrib-2.52.0.zip
 		wget https://download.forge.ow2.org/bonita/BonitaBPMCommunity-7.2.4-Tomcat-7.0.67.zip
 		unzip bonita-migration-distrib-2.52.0.zip
 		unzip BonitaBPMCommunity-7.2.4-Tomcat-7.0.67.zip
@@ -184,7 +184,7 @@ The `-v /my/own/datadir:/opt/bonita` part of the command mounts the `/my/own/dat
 
 		```console
 		cd bonita_migration
-		wget https://release.ow2.org/bonita/bonita-migration-distrib-2.52.0.zip
+		wget https://github.com/bonitasoft/bonita-platform-releases/releases/download/7.11.0/bonita-migration-distrib-2.52.0.zip
 		unzip bonita-migration-distrib-2.52.0.zip
 		```
 
