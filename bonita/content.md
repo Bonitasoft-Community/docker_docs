@@ -22,28 +22,19 @@ You can access the Bonita Portal on http://localhost:8080/bonita and login using
 
 ### PostgreSQL
 
-PostgreSQL is the recommended database.
+PostgreSQL is the recommended database. Note that from Bonita 2022.1 onwards, the Bonita docker image does not include configuration scripts for Postgres
+Therefore the PostgreSQL container needs to be configured to work with Bonita before starting the Bonita container.
+The configuration of a PostgreSQL database to work with Bonita is described in detail in the [database configuration page](https://documentation.bonitasoft.com/bonita/2021.2/database-configuration)
+Alternatively, Bonita provides a preconfigured [postgres image](https://hub.docker.com/repository/docker/bonitasoft/bonita-postgres) on docker-hub
+You can run the image with the following command
 
-[Set max_prepared_transactions to 100](https://documentation.bonitasoft.com/bonita/2021.1/database-configuration#_postgresql):
-
-```console
-$ mkdir -p custom_postgres
-$ echo '#!/bin/bash' > custom_postgres/bonita.sh
-$ echo 'sed -i "s/^.*max_prepared_transactions\s*=\s*\(.*\)$/max_prepared_transactions = 100/" "$PGDATA"/postgresql.conf' >> custom_postgres/bonita.sh
-$ chmod +x custom_postgres/bonita.sh
-```
-
-Mount that directory location as /docker-entrypoint-initdb.d inside the PostgreSQL container:
+[Set max_prepared_transactions to 100](https://documentation.bonitasoft.com/bonita/2021.2/database-configuration#_postgresql):
 
 ```console
-$ docker run --name mydbpostgres -v "$PWD"/custom_postgres/:/docker-entrypoint-initdb.d -e POSTGRES_PASSWORD=mysecretpassword -d postgres:11
+docker run --name mydbpostgres -h <hostname> -v bonita-lic:/opt/bonita_lic/ -d bonitasoft/bonita-postgres:12.6
 ```
 
-See the [official PostgreSQL documentation](https://hub.docker.com/_/postgres/) for more details.
-
-```console
-$ docker run --name bonita_postgres --link mydbpostgres:postgres -d -p 8080:8080 %%IMAGE%%
-```
+This image is built from the following [github repository](https://github.com/Bonitasoft-Community/bonita-database-docker/tree/main/postgres/12), which can be further adapted/customized to suit your needs.
 
 ### MySQL
 
@@ -316,10 +307,6 @@ This optional environment variable is used to enable/disable the Bonita HTTP API
 ### `JAVA_OPTS`
 
 This optional environment variable is used to customize JAVA_OPTS. The default value is `-Xms1024m -Xmx1024m -XX:MaxPermSize=256m`.
-
-### `ENSURE_DB_CHECK_AND_CREATION`
-
-This optional environment variable is used to allow/disallow the SQL queries to automatically check and create the databases using the database administrator credentials. The default value is `true`.
 
 ### `DB_VENDOR`
 
